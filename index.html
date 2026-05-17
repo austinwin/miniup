@@ -598,6 +598,10 @@
       font-weight: 620;
     }
 
+    .section.dark .section-head p {
+      color: #d8e2ee;
+    }
+
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -635,6 +639,20 @@
     .card p {
       font-size: 14px;
       font-weight: 650;
+    }
+
+    .section.dark .card {
+      border-color: #334256;
+      background: #172338;
+      box-shadow: none;
+    }
+
+    .section.dark .card h3 {
+      color: #ffffff;
+    }
+
+    .section.dark .card p {
+      color: #dce7f3;
     }
 
     .number {
@@ -750,75 +768,47 @@
 
     .data-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(330px, 0.72fr);
+      grid-template-columns: minmax(0, 0.78fr) minmax(0, 1fr);
       gap: 24px;
       align-items: start;
     }
 
-    .map-board {
-      position: relative;
-      min-height: 390px;
-      overflow: hidden;
+    .data-card {
       border: 1px solid #cbd6e2;
       border-radius: var(--radius);
-      background:
-        linear-gradient(90deg, rgba(203, 213, 225, 0.55) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(203, 213, 225, 0.5) 1px, transparent 1px),
-        #f8fafc;
-      background-size: 46px 46px;
-    }
-
-    .map-line {
-      position: absolute;
-      left: 11%;
-      right: 13%;
-      height: 4px;
-      border-radius: 999px;
-      background: var(--teal);
-      transform-origin: left center;
-    }
-
-    .map-line.one {
-      top: 31%;
-      transform: rotate(-9deg);
-    }
-
-    .map-line.two {
-      top: 62%;
-      background: var(--blue);
-      transform: rotate(12deg);
-    }
-
-    .map-pin {
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border: 4px solid #ffffff;
-      border-radius: 999px;
-      background: var(--amber);
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.18);
-    }
-
-    .pin-a { left: 18%; top: 26%; }
-    .pin-b { left: 48%; top: 40%; background: var(--teal); }
-    .pin-c { left: 72%; top: 57%; background: var(--blue); }
-    .pin-d { left: 34%; top: 68%; background: var(--green); }
-
-    .map-caption {
-      position: absolute;
-      left: 18px;
-      right: 18px;
-      bottom: 18px;
       padding: 14px;
-      border: 1px solid #d8e1eb;
-      border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.94);
+      background: #ffffff;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.04);
     }
 
-    .map-caption strong {
+    .data-card strong {
       display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .data-card p {
+      color: #4b5a6d;
       font-size: 14px;
-      margin-bottom: 5px;
+      font-weight: 680;
+    }
+
+    .format-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .format-pill {
+      padding: 7px 9px;
+      border: 1px solid #cbd6e2;
+      border-radius: 999px;
+      background: #f8fafc;
+      color: #334155;
+      font-size: 12px;
+      font-weight: 900;
     }
 
     .list-panel {
@@ -1051,10 +1041,6 @@
       .card,
       .faq-item {
         padding: 18px;
-      }
-
-      .map-board {
-        min-height: 320px;
       }
 
       .matrix-row {
@@ -1312,23 +1298,27 @@
         </div>
 
         <div class="data-layout">
-          <div class="map-board" aria-label="MiniUp GIS output illustration">
-            <div class="map-line one"></div>
-            <div class="map-line two"></div>
-            <span class="map-pin pin-a"></span>
-            <span class="map-pin pin-b"></span>
-            <span class="map-pin pin-c"></span>
-            <span class="map-pin pin-d"></span>
-            <div class="map-caption">
-              <strong>GeoJSON, ZIP shapefile, Parquet, or GeoParquet in.</strong>
-              <p>MiniUp can return map-ready GeoJSON, ArcGIS Online-friendly GeoJSON, FeatureServer compatibility URLs, and layer metadata.</p>
+          <div class="data-card">
+            <strong>Data files become stable MiniUp-hosted links.</strong>
+            <p>
+              MiniUp handles the import and conversion work, then returns the URLs an end user needs:
+              browser-map GeoJSON, ArcGIS Online-friendly GeoJSON, FeatureServer compatibility URLs,
+              layer metadata, schema details, and preview records.
+            </p>
+            <div class="format-grid" aria-label="Supported data formats">
+              <span class="format-pill">CSV</span>
+              <span class="format-pill">Excel</span>
+              <span class="format-pill">JSON</span>
+              <span class="format-pill">GeoJSON</span>
+              <span class="format-pill">ZIP shapefile</span>
+              <span class="format-pill">Parquet</span>
+              <span class="format-pill">GeoParquet</span>
             </div>
           </div>
 
           <div class="list-panel">
             <div class="list-item">Import CSV, Excel, JSON, GeoJSON, ZIP shapefiles, Parquet, and GeoParquet.</div>
             <div class="list-item">Use hosted dataset links, grant URLs, schema metadata, and preview rows.</div>
-            <div class="list-item">Use <code>window.MINIUP_DATASET</code> bindings in generated HTML apps.</div>
             <div class="list-item">Use map-ready GeoJSON URLs for Leaflet and browser GIS apps.</div>
             <div class="list-item">Use the returned GeoJSON URL in ArcGIS Online by choosing GeoJSON.</div>
             <div class="list-item">Keep FeatureServer compatibility URLs for Web AppBuilder or custom ArcGIS clients.</div>

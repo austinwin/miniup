@@ -1,0 +1,1459 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MiniUp - Instant apps, APIs, GIS links, and agent hosting</title>
+  <meta
+    name="description"
+    content="MiniUp is the instant host for human uploads, ChatGPT-built apps, table-to-API backends, GIS dataset links, and x402-paid agent workflows."
+  />
+  <link rel="icon" href="/favicon-96x96.png" />
+
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #526071;
+      --soft: #eef2f7;
+      --paper: #ffffff;
+      --line: #d8e0ea;
+      --blue: #2463eb;
+      --teal: #0f766e;
+      --green: #16803b;
+      --amber: #b45309;
+      --red: #b42318;
+      --max: 1160px;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: #f8fafc;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.92em;
+      color: #0b3b8f;
+      background: #eaf2ff;
+      border: 1px solid #cfe0ff;
+      border-radius: 6px;
+      padding: 1px 5px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 13px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: #0f172a;
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 15px;
+      flex: none;
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0;
+      color: var(--ink);
+    }
+
+    .brand-line {
+      font-size: 12px;
+      font-weight: 800;
+      color: #778396;
+      margin-top: -2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 850;
+      color: #586579;
+      padding: 8px 10px;
+      border-radius: var(--radius);
+    }
+
+    .nav-link:hover {
+      background: #f1f5f9;
+      color: var(--ink);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 10px 15px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 900;
+      white-space: nowrap;
+      box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+    }
+
+    .button.primary {
+      border-color: #1d4ed8;
+      background: #1d4ed8;
+      color: #ffffff;
+      box-shadow: 0 14px 28px rgba(29, 78, 216, 0.18);
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 620px;
+      background: #eaf0f7;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-stage {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(520px, 1fr);
+      pointer-events: none;
+    }
+
+    .hero-screen {
+      grid-column: 2;
+      align-self: stretch;
+      margin: 54px 0 42px;
+      border: 1px solid #cbd5e1;
+      border-right: 0;
+      border-radius: 8px 0 0 8px;
+      background: #ffffff;
+      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.16);
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .screen-top {
+      height: 42px;
+      border-bottom: 1px solid #dbe3ee;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      background: #f8fafc;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #94a3b8;
+    }
+
+    .screen-url {
+      height: 22px;
+      width: 320px;
+      border-radius: 6px;
+      border: 1px solid #d8e0ea;
+      background: #ffffff;
+      margin-left: 8px;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      padding: 0 9px;
+    }
+
+    .screen-grid {
+      display: grid;
+      grid-template-columns: 260px minmax(360px, 1fr);
+      min-height: 590px;
+    }
+
+    .screen-side {
+      border-right: 1px solid #e2e8f0;
+      background: #fbfdff;
+      padding: 18px;
+    }
+
+    .side-title {
+      font-size: 12px;
+      font-weight: 900;
+      color: #64748b;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .side-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid #edf2f7;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .side-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 900;
+      flex: none;
+    }
+
+    .side-icon.blue { background: var(--blue); }
+    .side-icon.teal { background: var(--teal); }
+    .side-icon.green { background: var(--green); }
+    .side-icon.amber { background: var(--amber); }
+
+    .screen-main {
+      padding: 22px;
+      background: #ffffff;
+      min-width: 0;
+    }
+
+    .status-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .status-card {
+      border: 1px solid #e1e8f0;
+      border-radius: var(--radius);
+      padding: 12px;
+      min-height: 96px;
+      background: #ffffff;
+    }
+
+    .status-kicker {
+      color: #738196;
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 9px;
+    }
+
+    .status-value {
+      font-size: 22px;
+      line-height: 1.1;
+      font-weight: 950;
+      color: var(--ink);
+    }
+
+    .status-sub {
+      margin-top: 6px;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .pipeline {
+      border: 1px solid #e1e8f0;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .pipeline-head {
+      padding: 14px 16px;
+      border-bottom: 1px solid #e1e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .pipeline-title {
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .pipeline-meta {
+      font-size: 12px;
+      font-weight: 850;
+      color: var(--teal);
+    }
+
+    .pipeline-row {
+      display: grid;
+      grid-template-columns: 150px minmax(220px, 1fr) 130px;
+      gap: 12px;
+      align-items: center;
+      padding: 13px 16px;
+      border-bottom: 1px solid #edf2f7;
+      font-size: 12px;
+      font-weight: 850;
+      color: #475569;
+    }
+
+    .pipeline-row:last-child {
+      border-bottom: 0;
+    }
+
+    .progress {
+      height: 8px;
+      border-radius: 999px;
+      background: #e6edf5;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      background: #0f766e;
+      border-radius: 999px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 84px 22px 64px;
+    }
+
+    .hero-copy {
+      max-width: 690px;
+    }
+
+    .kicker {
+      font-size: 13px;
+      font-weight: 950;
+      color: #0f766e;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      letter-spacing: 0;
+      color: var(--ink);
+    }
+
+    h1 {
+      font-size: 58px;
+      line-height: 1.02;
+      max-width: 760px;
+      font-weight: 950;
+    }
+
+    .hero-lede {
+      margin-top: 22px;
+      max-width: 670px;
+      font-size: 20px;
+      color: #334155;
+      font-weight: 650;
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .proof-strip {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 900px;
+    }
+
+    .proof-item {
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: rgba(255, 255, 255, 0.78);
+      border-radius: var(--radius);
+      padding: 12px;
+      min-height: 86px;
+      backdrop-filter: blur(6px);
+    }
+
+    .proof-label {
+      font-size: 11px;
+      font-weight: 950;
+      color: #64748b;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .proof-value {
+      font-size: 15px;
+      line-height: 1.2;
+      font-weight: 950;
+      color: var(--ink);
+    }
+
+    .section {
+      padding: 72px 22px;
+      border-bottom: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .section.alt {
+      background: #f5f8fb;
+    }
+
+    .section.dark {
+      background: #152033;
+      color: #ffffff;
+    }
+
+    .section.dark h2,
+    .section.dark h3,
+    .section.dark .section-eyebrow {
+      color: #ffffff;
+    }
+
+    .section.dark p,
+    .section.dark li {
+      color: #cbd5e1;
+    }
+
+    .section-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.75fr);
+      gap: 40px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+
+    .section-eyebrow {
+      color: #0f766e;
+      font-size: 12px;
+      font-weight: 950;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 38px;
+      line-height: 1.08;
+      font-weight: 950;
+    }
+
+    .section-head p {
+      font-size: 17px;
+      color: #5d6a7d;
+    }
+
+    .path-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .path-card,
+    .feature-card,
+    .use-card {
+      border: 1px solid var(--line);
+      background: #ffffff;
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+    }
+
+    .path-card {
+      min-height: 340px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 950;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .card-number.blue { background: var(--blue); }
+    .card-number.teal { background: var(--teal); }
+    .card-number.amber { background: var(--amber); }
+
+    h3 {
+      font-size: 21px;
+      line-height: 1.16;
+      font-weight: 950;
+      margin-bottom: 9px;
+    }
+
+    .card-list {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .card-list li {
+      position: relative;
+      padding-left: 18px;
+      color: #526071;
+      font-size: 14px;
+      font-weight: 720;
+    }
+
+    .card-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.67em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #0f766e;
+    }
+
+    .table-band {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .api-panel {
+      border: 1px solid #344359;
+      background: #0b1220;
+      color: #dbeafe;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 26px 60px rgba(2, 6, 23, 0.24);
+    }
+
+    .api-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 16px;
+      border-bottom: 1px solid #243145;
+      background: #111a2d;
+    }
+
+    .api-title {
+      font-size: 13px;
+      font-weight: 950;
+      color: #ffffff;
+    }
+
+    .api-status {
+      font-size: 11px;
+      font-weight: 950;
+      color: #7dd3fc;
+    }
+
+    .code-lines {
+      padding: 18px;
+      margin: 0;
+      overflow: auto;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 13px;
+      line-height: 1.75;
+      color: #dbeafe;
+    }
+
+    .code-lines .method {
+      color: #86efac;
+      font-weight: 900;
+    }
+
+    .code-lines .url {
+      color: #93c5fd;
+    }
+
+    .code-lines .comment {
+      color: #94a3b8;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .feature-card {
+      min-height: 190px;
+    }
+
+    .feature-tag {
+      font-size: 11px;
+      font-weight: 950;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .feature-tag.blue { color: var(--blue); }
+    .feature-tag.teal { color: var(--teal); }
+    .feature-tag.green { color: var(--green); }
+    .feature-tag.amber { color: var(--amber); }
+    .feature-tag.red { color: var(--red); }
+
+    .gis-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(380px, 0.82fr);
+      gap: 26px;
+      align-items: start;
+    }
+
+    .gis-map {
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, rgba(203, 213, 225, 0.38) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(203, 213, 225, 0.38) 1px, transparent 1px),
+        #f8fafc;
+      background-size: 42px 42px;
+      min-height: 390px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .route-line {
+      position: absolute;
+      left: 40px;
+      right: 40px;
+      top: 118px;
+      height: 4px;
+      background: #0f766e;
+      transform: rotate(-8deg);
+      transform-origin: left center;
+      border-radius: 999px;
+    }
+
+    .route-line.two {
+      top: 230px;
+      background: #2463eb;
+      transform: rotate(11deg);
+    }
+
+    .map-pin {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 4px solid #ffffff;
+      background: #b45309;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+    }
+
+    .pin-a { left: 18%; top: 26%; }
+    .pin-b { left: 52%; top: 41%; background: #0f766e; }
+    .pin-c { left: 74%; top: 58%; background: #2463eb; }
+    .pin-d { left: 36%; top: 68%; background: #16803b; }
+
+    .gis-caption {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      right: 20px;
+      border: 1px solid #d8e0ea;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+
+    .gis-caption strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .compact-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 9px;
+    }
+
+    .compact-list li {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      padding: 13px 14px;
+      color: #465568;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .share-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .share-item {
+      border: 1px solid #344359;
+      border-radius: var(--radius);
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.045);
+      min-height: 152px;
+    }
+
+    .share-item h3 {
+      color: #ffffff;
+    }
+
+    .feature-matrix {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .matrix-row {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      border-bottom: 1px solid #e5ebf2;
+    }
+
+    .matrix-row:last-child {
+      border-bottom: 0;
+    }
+
+    .matrix-topic {
+      padding: 16px;
+      background: #f8fafc;
+      border-right: 1px solid #e5ebf2;
+      font-size: 14px;
+      font-weight: 950;
+      color: var(--ink);
+    }
+
+    .matrix-detail {
+      padding: 16px;
+      color: #526071;
+      font-size: 14px;
+      font-weight: 720;
+    }
+
+    .use-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .use-card {
+      min-height: 160px;
+    }
+
+    .cta {
+      padding: 82px 22px;
+      background: #eaf0f7;
+    }
+
+    .cta-panel {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 30px;
+      align-items: center;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      border-radius: var(--radius);
+      padding: 30px;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+    }
+
+    .cta h2 {
+      font-size: 34px;
+    }
+
+    .cta p {
+      margin-top: 10px;
+      max-width: 700px;
+      font-size: 17px;
+    }
+
+    .footer {
+      padding: 28px 22px;
+      color: #64748b;
+      background: #ffffff;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      font-size: 14px;
+      font-weight: 750;
+    }
+
+    @media (max-width: 1080px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-stage {
+        opacity: 0.24;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-screen {
+        grid-column: 1;
+        margin-left: 26%;
+      }
+
+      .proof-strip,
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .path-grid,
+      .share-grid,
+      .use-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .table-band,
+      .gis-layout,
+      .section-head,
+      .cta-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-content {
+        padding: 58px 18px 46px;
+      }
+
+      h1 {
+        font-size: 38px;
+        line-height: 1.07;
+      }
+
+      h2 {
+        font-size: 30px;
+      }
+
+      .hero-lede {
+        font-size: 17px;
+      }
+
+      .hero-actions,
+      .footer-inner {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .proof-strip,
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .proof-strip {
+        display: none;
+      }
+
+      .section,
+      .cta {
+        padding: 54px 18px;
+      }
+
+      .screen-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .screen-side {
+        display: none;
+      }
+
+      .status-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .pipeline-row {
+        grid-template-columns: 1fr;
+      }
+
+      .matrix-row {
+        grid-template-columns: 1fr;
+      }
+
+      .matrix-topic {
+        border-right: 0;
+        border-bottom: 1px solid #e5ebf2;
+      }
+
+      .cta-panel {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">M</span>
+        <span>
+          <span class="brand-name">MiniUp</span>
+          <span class="brand-line">Instant host for humans, ChatGPT, and agents</span>
+        </span>
+      </a>
+
+      <div class="nav-links">
+        <a class="nav-link" href="#paths">Launch paths</a>
+        <a class="nav-link" href="#table-api">Table to API</a>
+        <a class="nav-link" href="#gis">GIS links</a>
+        <a class="nav-link" href="#chatgpt">ChatGPT</a>
+        <a class="nav-link" href="#x402">x402 agents</a>
+        <a class="button primary" href="/">Start publishing</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-copy">
+          <div class="kicker">Pages, data APIs, GIS links, ChatGPT apps, and x402 agents</div>
+          <h1>MiniUp turns ideas and files into live apps with backend data.</h1>
+          <p class="hero-lede">
+            Publish HTML, upload a project, turn tables into APIs, convert geospatial data into ArcGIS-ready links,
+            and let ChatGPT or autonomous agents do the same work for you.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="/">Start publishing</a>
+            <a class="button" href="/chatgptapp">Use MiniUp in ChatGPT</a>
+            <a class="button" href="/x402agent">Agent API</a>
+          </div>
+        </div>
+
+        <div class="proof-strip" aria-label="MiniUp conversion examples">
+          <div class="proof-item">
+            <div class="proof-label">HTML</div>
+            <div class="proof-value">Live URL</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-label">CSV or Excel</div>
+            <div class="proof-value">REST API</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-label">GeoJSON</div>
+            <div class="proof-value">ArcGIS link</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-label">Prompt</div>
+            <div class="proof-value">Hosted app</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-label">Wallet</div>
+            <div class="proof-value">x402 agent</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-stage" aria-hidden="true">
+        <div class="hero-screen">
+          <div class="screen-top">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="screen-url">miniup.io/p/live-civic-map</span>
+          </div>
+
+          <div class="screen-grid">
+            <div class="screen-side">
+              <div class="side-title">Workspace</div>
+              <div class="side-item"><span class="side-icon blue">URL</span> Publish site</div>
+              <div class="side-item"><span class="side-icon teal">API</span> Table backend</div>
+              <div class="side-item"><span class="side-icon green">GIS</span> ArcGIS links</div>
+              <div class="side-item"><span class="side-icon amber">AI</span> ChatGPT app</div>
+              <div class="side-item"><span class="side-icon blue">402</span> Agent API</div>
+            </div>
+
+            <div class="screen-main">
+              <div class="status-row">
+                <div class="status-card">
+                  <div class="status-kicker">Live app</div>
+                  <div class="status-value">1 URL</div>
+                  <div class="status-sub">password optional</div>
+                </div>
+                <div class="status-card">
+                  <div class="status-kicker">Data</div>
+                  <div class="status-value">API</div>
+                  <div class="status-sub">write keys + scopes</div>
+                </div>
+                <div class="status-card">
+                  <div class="status-kicker">GIS</div>
+                  <div class="status-value">GeoJSON</div>
+                  <div class="status-sub">ArcGIS-ready</div>
+                </div>
+                <div class="status-card">
+                  <div class="status-kicker">Agents</div>
+                  <div class="status-value">x402</div>
+                  <div class="status-sub">wallet identity</div>
+                </div>
+              </div>
+
+              <div class="pipeline">
+                <div class="pipeline-head">
+                  <div class="pipeline-title">Upload pipeline</div>
+                  <div class="pipeline-meta">Ready to share</div>
+                </div>
+                <div class="pipeline-row">
+                  <span>stores.csv</span>
+                  <div class="progress"><span style="width: 100%"></span></div>
+                  <span>REST API</span>
+                </div>
+                <div class="pipeline-row">
+                  <span>districts.geojson</span>
+                  <div class="progress"><span style="width: 100%"></span></div>
+                  <span>ArcGIS URL</span>
+                </div>
+                <div class="pipeline-row">
+                  <span>site.zip</span>
+                  <div class="progress"><span style="width: 100%"></span></div>
+                  <span>Live page</span>
+                </div>
+                <div class="pipeline-row">
+                  <span>ChatGPT prompt</span>
+                  <div class="progress"><span style="width: 100%"></span></div>
+                  <span>MiniUp app</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="paths" class="section">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <div class="section-eyebrow">Launch the way you work</div>
+            <h2>One product for human upload, ChatGPT publishing, and paid agent workflows.</h2>
+          </div>
+          <p>
+            MiniUp keeps the path short. Start from a file, a prompt, a dataset, or an x402 API call,
+            then end with a real hosted page and the data links it needs.
+          </p>
+        </div>
+
+        <div class="path-grid">
+          <article class="path-card">
+            <div class="card-number blue">01</div>
+            <h3>For people uploading directly</h3>
+            <p>Paste HTML, upload one file, upload a folder, unpack a ZIP, or start from a template.</p>
+            <ul class="card-list">
+              <li>Built-in file explorer for CSS, JS, images, PDFs, fonts, videos, JSON, and assets.</li>
+              <li>Create empty files, replace files, change entry points, and keep editing after launch.</li>
+              <li>Use password protection, QR codes, Gallery listing, thumbnails, and custom domains.</li>
+            </ul>
+          </article>
+
+          <article id="chatgpt" class="path-card">
+            <div class="card-number teal">02</div>
+            <h3>For MiniUp inside ChatGPT</h3>
+            <p>Connect MiniUp in ChatGPT, attach files, and ask for the finished published app.</p>
+            <ul class="card-list">
+              <li>Publish HTML-only pages, uploaded-file apps, dataset-backed dashboards, and map apps.</li>
+              <li>Use real ChatGPT file attachments instead of fragile base64 or browser-local file pickers.</li>
+              <li>Manage Gallery metadata, passwords, tables, records, datasets, ArcGIS URLs, and usage.</li>
+            </ul>
+          </article>
+
+          <article id="x402" class="path-card">
+            <div class="card-number amber">03</div>
+            <h3>For autonomous agents</h3>
+            <p>Agents can use x402-paid API calls with their paying wallet as MiniUp identity.</p>
+            <ul class="card-list">
+              <li>Free discovery endpoints expose schemas, actions, prices, and receipt shape.</li>
+              <li>Paid actions can create, upload, update, publish, unpublish, convert, and delete.</li>
+              <li>Structured receipts include wallet, network, transaction, price, app metadata, and status.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="table-api" class="section dark">
+      <div class="section-inner table-band">
+        <div>
+          <div class="section-eyebrow">Table to API</div>
+          <h2>Turn an idea or spreadsheet into a backend data store.</h2>
+          <p>
+            MiniUp gives static apps the missing backend. Design a table from a plain-language idea,
+            import CSV, Excel, or JSON, then use the generated API from your MiniUp page, a ChatGPT-built app,
+            an internal tool, or an automation.
+          </p>
+          <ul class="card-list">
+            <li>Editable dashboard tables with insert, edit, delete, search, paging, and CSV export.</li>
+            <li>REST endpoints for list, create, update, and delete records.</li>
+            <li>Write keys and per-table method scopes so public reads and protected writes stay separate.</li>
+            <li>Canonical API URLs, schema URLs, record templates, and fetch examples for generated apps.</li>
+          </ul>
+        </div>
+
+        <div class="api-panel" aria-label="Example generated MiniUp table API">
+          <div class="api-top">
+            <div class="api-title">Generated table backend</div>
+            <div class="api-status">zero backend setup</div>
+          </div>
+          <pre class="code-lines"><span class="comment"># Table: event_rsvps</span>
+<span class="method">GET</span>   <span class="url">/api/data/summit/rsvps?limit=25</span>
+<span class="method">POST</span>  <span class="url">/api/data/summit/rsvps</span>
+<span class="method">PATCH</span> <span class="url">/api/data/summit/rsvps/{recordId}</span>
+<span class="method">DELETE</span> <span class="url">/api/data/summit/rsvps/{recordId}</span>
+
+<span class="comment">Header: x-miniup-write-key</span>
+<span class="comment">Scopes: GET, POST, PATCH, DELETE</span></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="gis" class="section alt">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <div class="section-eyebrow">GIS and data delivery</div>
+            <h2>Upload a data file. Get hosted dataset and ArcGIS-ready links.</h2>
+          </div>
+          <p>
+            MiniUp handles the server-side import and returns exact URLs your app, map, GIS workflow,
+            DuckDB reader, or ArcGIS Online map can use immediately.
+          </p>
+        </div>
+
+        <div class="gis-layout">
+          <div class="gis-map" aria-label="Map-style visual showing MiniUp GIS output">
+            <div class="route-line"></div>
+            <div class="route-line two"></div>
+            <span class="map-pin pin-a"></span>
+            <span class="map-pin pin-b"></span>
+            <span class="map-pin pin-c"></span>
+            <span class="map-pin pin-d"></span>
+            <div class="gis-caption">
+              <strong>GeoJSON, shapefile ZIP, Parquet, or GeoParquet in.</strong>
+              <p>MiniUp can return map-ready GeoJSON, ArcGIS Online-friendly GeoJSON, FeatureServer compatibility URLs, and layer metadata.</p>
+            </div>
+          </div>
+
+          <ul class="compact-list">
+            <li>Upload CSV, Excel, JSON, GeoJSON, ZIP shapefiles, Parquet, or GeoParquet.</li>
+            <li>Use hosted dataset links in browser apps instead of relying on local file pickers.</li>
+            <li>Use <code>window.MINIUP_DATASET</code> bindings in generated HTML apps.</li>
+            <li>Use map-ready GeoJSON URLs for Leaflet and browser GIS apps.</li>
+            <li>Use the returned GeoJSON URL in ArcGIS Online by choosing GeoJSON.</li>
+            <li>Keep FeatureServer compatibility URLs for Web AppBuilder or custom ArcGIS clients.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <div class="section-eyebrow">More than a link</div>
+            <h2>MiniUp gives fast launches the controls people expect from a finished product.</h2>
+          </div>
+          <p>
+            A first publish should not trap you. MiniUp lets the same project grow into a shareable,
+            protected, data-powered app without moving to another stack.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-tag blue">Instant hosting</div>
+            <h3>Publish projects, not just snippets.</h3>
+            <p>Single HTML files, full folders, ZIP projects, templates, assets, and later file edits all live in one workspace.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-tag teal">Version control</div>
+            <h3>Keep updating with context.</h3>
+            <p>Revision-aware publishing can track publish, upload, edit, restore, delete, and config changes when revisions are enabled.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-tag green">Gallery</div>
+            <h3>Make public work discoverable.</h3>
+            <p>Add a Gallery title, description, thumbnail, and listing controls when your page is ready to be seen.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-tag amber">Protection</div>
+            <h3>Share privately first.</h3>
+            <p>Password protect a launch, disable or re-enable pages, and control table writes through keys and method scopes.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-tag red">Custom domains</div>
+            <h3>Graduate to a branded URL.</h3>
+            <p>Launch on a MiniUp URL first, then attach your own hostname when a client, campaign, or team needs polish.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-tag blue">QR sharing</div>
+            <h3>Move from screen to room.</h3>
+            <p>Generate QR codes for events, print, kiosks, classrooms, demos, and quick mobile sharing.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-tag teal">Usage limits</div>
+            <h3>Know what will work.</h3>
+            <p>See upload size, max files, storage, table counts, data-file limits, API quotas, and rate limits.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-tag green">Admin controls</div>
+            <h3>Operate the platform.</h3>
+            <p>Manage users, password resets, blocked accounts, defaults, usage, data tables, and x402 action pricing.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <div class="section-eyebrow">Complete feature surface</div>
+            <h2>The pieces that usually require separate tools are built into MiniUp.</h2>
+          </div>
+          <p>
+            MiniUp stands out because it connects publishing, data, GIS, sharing, AI, and agent infrastructure
+            instead of forcing every launch into a pile of separate services.
+          </p>
+        </div>
+
+        <div class="share-grid">
+          <article class="share-item">
+            <h3>Human uploads</h3>
+            <p>HTML, folders, ZIPs, assets, file explorer, project updates, password, QR, Gallery, custom domains, and usage-aware limits.</p>
+          </article>
+          <article class="share-item">
+            <h3>ChatGPT app</h3>
+            <p>OAuth connection, file attachments, direct upload parameters, hosted data bindings, Gallery updates, password setting, tables, records, and ArcGIS tools.</p>
+          </article>
+          <article class="share-item">
+            <h3>x402 agents</h3>
+            <p>Wallet-paid actions, free discovery, machine-readable API reference, configurable prices, receipts, and wallet-owned apps.</p>
+          </article>
+          <article class="share-item">
+            <h3>Backend data</h3>
+            <p>Idea-to-table creation, imports, CRUD APIs, method scopes, write keys, docs, examples, row management, and CSV export.</p>
+          </article>
+          <article class="share-item">
+            <h3>Dataset hosting</h3>
+            <p>CSV, Excel, JSON, GeoJSON, shapefile ZIP, Parquet, GeoParquet, preview rows, schema metadata, grant URLs, and stable app links.</p>
+          </article>
+          <article class="share-item">
+            <h3>GIS delivery</h3>
+            <p>Map-ready GeoJSON, ArcGIS Online-friendly URLs, FeatureServer compatibility URLs, layer metadata, and browser map bindings.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="section-inner">
+        <div class="section-head">
+          <div>
+            <div class="section-eyebrow">Use it right away</div>
+            <h2>Launches that are hard elsewhere become direct in MiniUp.</h2>
+          </div>
+          <p>Start with a concrete file or idea. MiniUp gives you the hosted surface, the data layer, and the sharing controls.</p>
+        </div>
+
+        <div class="use-grid">
+          <article class="use-card">
+            <h3>CSV to dashboard</h3>
+            <p>Upload a spreadsheet, publish a clean dashboard, and expose the same data through a REST API.</p>
+          </article>
+          <article class="use-card">
+            <h3>Prompt to data app</h3>
+            <p>Ask ChatGPT for an RSVP, lead capture, product catalog, or directory app with a MiniUp table behind it.</p>
+          </article>
+          <article class="use-card">
+            <h3>Shapefile to GIS URL</h3>
+            <p>Upload a ZIP shapefile and get map-ready links for browser maps and ArcGIS workflows.</p>
+          </article>
+          <article class="use-card">
+            <h3>Folder to microsite</h3>
+            <p>Upload a complete static project with scripts, styles, images, PDFs, and videos, then keep editing after publish.</p>
+          </article>
+          <article class="use-card">
+            <h3>Agent to hosted result</h3>
+            <p>Let an agent pay with x402, publish an app, upload assets, create tables, and manage only its own work.</p>
+          </article>
+          <article class="use-card">
+            <h3>Private launch to public gallery</h3>
+            <p>Start password-protected, revise until ready, then add a Gallery listing, QR code, and custom domain.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <div class="feature-matrix" aria-label="MiniUp feature matrix">
+          <div class="matrix-row">
+            <div class="matrix-topic">Publish</div>
+            <div class="matrix-detail">Paste HTML, upload files, upload folders, unpack ZIPs, use templates, host assets, change entry points, and update projects after launch.</div>
+          </div>
+          <div class="matrix-row">
+            <div class="matrix-topic">Share</div>
+            <div class="matrix-detail">Live URLs, QR codes, Gallery listings, thumbnails, descriptions, custom domains, password protection, disable and enable controls.</div>
+          </div>
+          <div class="matrix-row">
+            <div class="matrix-topic">Build data apps</div>
+            <div class="matrix-detail">Create tables from ideas or imports, manage rows, use REST APIs, write keys, method scopes, generated examples, and CSV exports.</div>
+          </div>
+          <div class="matrix-row">
+            <div class="matrix-topic">Host data files</div>
+            <div class="matrix-detail">Import CSV, Excel, JSON, GeoJSON, shapefile ZIP, Parquet, and GeoParquet with hosted URLs, grants, previews, schema, and app bindings.</div>
+          </div>
+          <div class="matrix-row">
+            <div class="matrix-topic">Publish GIS links</div>
+            <div class="matrix-detail">Create map-ready GeoJSON, ArcGIS Online-friendly GeoJSON URLs, FeatureServer compatibility URLs, and layer metadata links.</div>
+          </div>
+          <div class="matrix-row">
+            <div class="matrix-topic">Work with AI</div>
+            <div class="matrix-detail">Use MiniUp in ChatGPT through OAuth and MCP tools, or use the x402 Agent API for wallet-paid autonomous publishing.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="launch" class="cta">
+      <div class="cta-panel">
+        <div>
+          <h2>Turn the next file, prompt, or agent action into a real MiniUp app.</h2>
+          <p>
+            Start with a page, then add backend tables, hosted datasets, GIS links, Gallery, password protection,
+            QR sharing, custom domains, ChatGPT publishing, and x402 agent access when you need them.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <a class="button primary" href="/">Start publishing</a>
+          <a class="button" href="/chatgptapp">ChatGPT app guide</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>&copy; <span id="year"></span> MiniUp</span>
+      <span>Instant hosting for pages, data APIs, GIS links, ChatGPT apps, and agents.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
